@@ -37,16 +37,30 @@ public class Player : MonoBehaviour
     /// <summary> Controls how high the player jumps. </summary>
     [SerializeField]
     private float jumpVelocity;
+    [Header("Health")]
+    /// <summary> The max health of the player. </summary>
+    [SerializeField]
+    private float maxHealth = 1;
+    /// <summary> The player's color at full health. </summary>
+    [SerializeField]
+    private Color normalColor;
+    /// <summary> The player's color at minimum health. </summary>
+    [SerializeField]
+    private Color deadColor;
     // private variables, not editable in inspector
     /// <summary> The player's rigidbody, used for physics-based movement. </summary>
     #pragma warning disable CS0108 // disable an old Unity warning that should have been deprecated years ago
     private Rigidbody2D rigidbody2D;
     /// <summary> Used for determining if the player is grounded. </summary>
     private BoxCollider2D boxCollider2D;
+    /// <summary> The visuals for this player. </summary>
+    private SpriteRenderer[] spriteRenderers;
     /// <summary> The player's start location. </summary>
     private Vector2 startPosition;
     /// <summary> The player's start rotation. </summary>
     private Quaternion startRotation;
+    /// <summary> The player's current health. </summary>
+    private float health;
     // private functions
     // Initialization code
     void Start()
@@ -55,8 +69,12 @@ public class Player : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
 
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+
         startPosition = transform.position;
         startRotation = transform.rotation;
+
+        ResetPlayer();
 
         Players.Add(this);
     }
@@ -108,19 +126,50 @@ public class Player : MonoBehaviour
     {
         Players.Remove(this);
     }
+    /// <summary> Colors the player according to their current health. </summary>
+    private void ColorPlayer()
+    {
+        float h1, s1, v1, h2, s2, v2;
+        Color.RGBToHSV(normalColor, out h1, out s1, out v1);
+        Color.RGBToHSV(deadColor, out h2, out s2, out v2);
+        
+        Color color = Color.HSVToRGB(
+            Mathf.Lerp(h2, h1, health / maxHealth),
+            Mathf.Lerp(s2, s1, health / maxHealth),
+            Mathf.Lerp(v2, v1, health / maxHealth)
+        );
+
+        foreach(SpriteRenderer spriteRenderer in spriteRenderers)
+        {
+            spriteRenderer.color = color;
+        }
+    }   
     // public functions
-    /// <summary> Reset the position of this player. </summary>
-    public void ResetPosition()
+    /// <summary> Reset this player. </summary>
+    public void ResetPlayer()
     {
         transform.position = startPosition;
         transform.rotation = startRotation;
+
+        health = maxHealth;
+
+        ColorPlayer();
+    }
+    /// <summary> Take the specified amount of damage. </summary>
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+        if (health < 0) health = 0;
+
+        ColorPlayer();
     }
     // static functions
     /// <summary> Reset the positions of all players. </summary>
     public static void ResetAllPositions ()
     {
-        foreach(Player player in Players){
-            player.ResetPosition();
+        foreach(Player player in Players)
+        {
+            player.ResetPlayer();
         }
     }
 }

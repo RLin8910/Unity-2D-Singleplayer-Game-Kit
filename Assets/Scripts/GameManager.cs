@@ -47,15 +47,15 @@ public class GameManager : MonoBehaviour
     /// <summary> Function called when the timer ends. </summary>
     void OnTimerEnded()
     {
-        EndGame("No one");
+        EndGame(false);
     }
     /// <summary> End the game. </summary>
-    /// <param name="winner"> The game winner's name. </param>
-    public void EndGame(string winner)
+    /// <param name="winner"> Whether the player won. </param>
+    public void EndGame(bool winner)
     {
         if(gameState == GameState.Ended) return;
 
-        winnerText.text = string.Format("{0} wins", winner);
+        winnerText.text = winner ? "You Win!" : "You Lose!";
         timer.Pause();
         canvasMenus.OpenMenu(winScreen);
         // disable player movement

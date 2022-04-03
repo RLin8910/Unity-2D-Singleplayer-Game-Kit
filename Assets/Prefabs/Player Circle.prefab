@@ -7,18 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 532786338875226921, guid: 54f483ffd09de504d9653bfa7f0ec346, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 532786338875226921, guid: 54f483ffd09de504d9653bfa7f0ec346, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 532786338875226921, guid: 54f483ffd09de504d9653bfa7f0ec346, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 532786338875226926, guid: 54f483ffd09de504d9653bfa7f0ec346, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -65,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 532786338875226927, guid: 54f483ffd09de504d9653bfa7f0ec346, type: 3}
       propertyPath: m_Name
-      value: Player 1 Circle
+      value: Player Circle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54f483ffd09de504d9653bfa7f0ec346, type: 3}

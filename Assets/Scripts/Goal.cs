@@ -8,6 +8,7 @@ public class Goal : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider) 
     {
         // end the game and use the gameObject's name as the winner name
-        GameManager.instance.EndGame(collider.name);
+        if(collider.isTrigger) return;
+        GameManager.instance.EndGame(true);
     }
 }
