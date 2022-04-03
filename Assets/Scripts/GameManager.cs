@@ -66,7 +66,8 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.Playing;
         timer.ResetTime();
-        Player.ResetAllPositions();
+        Player.ResetAll();
+        Bullet.ClearAll();
         Player.CanMove = true;
     }
 }

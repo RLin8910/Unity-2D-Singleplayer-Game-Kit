@@ -164,8 +164,8 @@ public class Player : MonoBehaviour
         ColorPlayer();
     }
     // static functions
-    /// <summary> Reset the positions of all players. </summary>
-    public static void ResetAllPositions ()
+    /// <summary> Reset all players. </summary>
+    public static void ResetAll ()
     {
         foreach(Player player in Players)
         {
